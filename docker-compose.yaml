@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  account_db:
+    image: postgres:16-alpine
+    ports:
+      -  "5431:5432"
+    environment:
+      POSTGRES_DB: mydb
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+
+#  app:
+#    build:
+#        context: .
+#    ports:
+#      - "3000:3000"
+#    depends_on:
+#      - db
+#    environment:
+#      DATABASE_URL: postgres://myuser:mypassword@db:5432/mydb
