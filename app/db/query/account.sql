@@ -4,10 +4,9 @@ INSERT INTO accounts (owner, balance, currency)
 VALUES ($1, $2, $3)
 RETURNING *;
 
--- name: ReadAccounts :many
+-- name: ListAccounts :many
 SELECT * FROM accounts
-LIMIT $1
-OFFSET $2;
+LIMIT $1 OFFSET $2;
 
 
 -- name: GetAccount :one
