@@ -28,7 +28,8 @@ func createRandomAccount(t *testing.T) (Account, error) {
 }
 
 func TestCreateAccount(t *testing.T) {
-	createRandomAccount(t)
+	_, err := createRandomAccount(t)
+	require.NoError(t, err)
 }
 
 func TestGetAccount(t *testing.T) {
