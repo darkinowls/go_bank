@@ -21,5 +21,12 @@ SET balance = $1
 WHERE id = $2
 RETURNING *;
 
+
+-- name: AddAccountBalance :one
+UPDATE accounts
+SET balance = balance + sqlc.arg(amount)
+WHERE id = $1
+Returning *;
+
 -- name: DeleteAccount :exec
 DELETE FROM accounts WHERE id = $1;

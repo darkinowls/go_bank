@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-func TestStore(t *testing.T) {
+func TestTransferTx(t *testing.T) {
 	store := NewStore(dbCon)
 
 	//acc1, err := store.GetAccount(ctx, 1)
@@ -19,7 +19,7 @@ func TestStore(t *testing.T) {
 	acc2, _ := createRandomAccount(t)
 
 	// concurently run n instances of the same test
-	n := 2
+	n := 5
 	errs := make(chan error)
 	txs := make(chan TransferTxResult)
 	amount := int64(10)
@@ -97,5 +97,59 @@ func TestStore(t *testing.T) {
 	require.NoError(t, err)
 	require.NotEmpty(t, account2)
 	require.Equal(t, account2.Balance, acc2.Balance+amount*int64(n))
+
+}
+
+func TestCrossTransferTxDeadlock(t *testing.T) {
+	store := NewStore(dbCon)
+
+	//acc1, err := store.GetAccount(ctx, 1)
+	//require.NoError(t, err)
+	//acc2, err := store.GetAccount(ctx, 2)
+	//require.NoError(t, err)
+
+	acc1, _ := createRandomAccount(t)
+	acc2, _ := createRandomAccount(t)
+
+	// concurently run n instances of the same test
+	n := 10
+	errs := make(chan error)
+	amount := int64(10)
+
+	for i := 0; i < n; i++ {
+		name := fmt.Sprintf("transaction-%d", i+1)
+		fromAccountId := acc1.ID
+		toAccountId := acc2.ID
+		if i%2 == 0 {
+			fromAccountId = acc2.ID
+			toAccountId = acc1.ID
+		}
+		go func() {
+			ctx := context.WithValue(context.Background(), TkKey, name)
+			_, err := store.TransferTx(ctx,
+				TransferTxParams{
+					FromAccountID: fromAccountId,
+					ToAccountID:   toAccountId,
+					Amount:        amount,
+				},
+			)
+			errs <- err
+		}()
+	}
+
+	for i := 0; i < n; i++ {
+		err := <-errs
+		require.NoError(t, err)
+	}
+
+	account1, err := store.GetAccount(context.Background(), acc1.ID)
+	require.NoError(t, err)
+	require.NotEmpty(t, account1)
+	require.Equal(t, account1.Balance, acc1.Balance)
+
+	account2, err := store.GetAccount(context.Background(), acc2.ID)
+	require.NoError(t, err)
+	require.NotEmpty(t, account2)
+	require.Equal(t, account2.Balance, acc2.Balance)
 
 }
