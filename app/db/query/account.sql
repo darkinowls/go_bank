@@ -12,6 +12,9 @@ LIMIT $1 OFFSET $2;
 -- name: GetAccount :one
 SELECT * FROM accounts WHERE id = $1;
 
+-- name: GetAccountForUpdate :one
+SELECT * FROM accounts WHERE id = $1 FOR UPDATE;
+
 -- name: UpdateAccount :one
 UPDATE accounts
 SET balance = $1

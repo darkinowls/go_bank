@@ -76,8 +76,10 @@ func TestDeleteAccount(t *testing.T) {
 }
 
 func TestListAccounts(t *testing.T) {
-	createRandomAccount(t)
-	createRandomAccount(t)
+	_, err := createRandomAccount(t)
+	require.NoError(t, err)
+	_, err = createRandomAccount(t)
+	require.NoError(t, err)
 
 	arg := ListAccountsParams{
 		Limit:  2,
