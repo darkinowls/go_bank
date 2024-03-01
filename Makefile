@@ -1,7 +1,7 @@
-migrate_up:
+migrateup:
 	migrate -path ./app/db/migrations -database "postgresql://myuser:mypassword@localhost:5431/mydb?sslmode=disable" -verbose up
 
-migrate_down:
+migratedown:
 	migrate -path ./app/db/migrations -database "postgresql://myuser:mypassword@localhost:5431/mydb?sslmode=disable" -verbose down
 
 sqlc:
@@ -10,4 +10,4 @@ sqlc:
 test:
 	go test -v -cover ./...
 
-.PHONY: migrate_up migrate_down sqlc test
+.PHONY: migrateup migratedown sqlc test

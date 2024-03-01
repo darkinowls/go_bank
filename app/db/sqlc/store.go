@@ -91,7 +91,7 @@ func (s *Store) TransferTx(ctx context.Context, arg TransferTxParams) (result Tr
 
 		fmt.Println(txName, "UpdateAccount 1...")
 		result.FromAccount, e = q.UpdateAccount(ctx, UpdateAccountParams{
-			ID:      result.FromAccount.ID,
+			ID:      acc1.ID,
 			Balance: acc1.Balance - arg.Amount,
 		})
 		if e != nil {
@@ -105,7 +105,7 @@ func (s *Store) TransferTx(ctx context.Context, arg TransferTxParams) (result Tr
 
 		fmt.Println(txName, "UpdateAccount 2...")
 		result.ToAccount, e = q.UpdateAccount(ctx, UpdateAccountParams{
-			ID:      result.ToAccount.ID,
+			ID:      acc2.ID,
 			Balance: acc2.Balance + arg.Amount,
 		})
 		if e != nil {

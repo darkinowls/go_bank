@@ -13,13 +13,13 @@ LIMIT $1 OFFSET $2;
 SELECT * FROM accounts WHERE id = $1;
 
 -- name: GetAccountForUpdate :one
-SELECT * FROM accounts WHERE id = $1 FOR UPDATE;
+SELECT * FROM accounts WHERE id = $1 FOR NO KEY UPDATE;
 
 -- name: UpdateAccount :one
 UPDATE accounts
 SET balance = $1
 WHERE id = $2
-returning *;
+RETURNING *;
 
 -- name: DeleteAccount :exec
 DELETE FROM accounts WHERE id = $1;

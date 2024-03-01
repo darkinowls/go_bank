@@ -61,7 +61,7 @@ func (q *Queries) GetAccount(ctx context.Context, id int64) (Account, error) {
 }
 
 const getAccountForUpdate = `-- name: GetAccountForUpdate :one
-SELECT id, owner, balance, currency, created_at FROM accounts WHERE id = $1 FOR UPDATE
+SELECT id, owner, balance, currency, created_at FROM accounts WHERE id = $1 FOR NO KEY UPDATE
 `
 
 func (q *Queries) GetAccountForUpdate(ctx context.Context, id int64) (Account, error) {
@@ -120,7 +120,7 @@ const updateAccount = `-- name: UpdateAccount :one
 UPDATE accounts
 SET balance = $1
 WHERE id = $2
-returning id, owner, balance, currency, created_at
+RETURNING id, owner, balance, currency, created_at
 `
 
 type UpdateAccountParams struct {

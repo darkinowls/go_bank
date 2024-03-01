@@ -83,8 +83,9 @@ func TestStore(t *testing.T) {
 		require.True(t, diff1%amount == 0)
 		k := int(diff1 / amount)
 		require.True(t, k >= 1 && k <= n)
-		existed[k] = true
+
 		require.NotContains(t, existed, k)
+		existed[k] = true
 	}
 
 	account1, err := store.GetAccount(context.Background(), acc1.ID)
@@ -95,6 +96,6 @@ func TestStore(t *testing.T) {
 	account2, err := store.GetAccount(context.Background(), acc2.ID)
 	require.NoError(t, err)
 	require.NotEmpty(t, account2)
-	require.Equal(t, account1.Balance, acc1.Balance+amount*int64(n))
+	require.Equal(t, account2.Balance, acc2.Balance+amount*int64(n))
 
 }
