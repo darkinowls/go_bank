@@ -10,4 +10,7 @@ sqlc:
 test:
 	go test -v -cover ./...
 
-.PHONY: migrateup migratedown sqlc test
+dcu:
+	docker-compose up -d
+
+.PHONY: migrateup migratedown sqlc test dcu
