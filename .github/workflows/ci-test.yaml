@@ -8,6 +8,17 @@ jobs:
   build:
     name: Build and Test
     runs-on: ubuntu-latest
+
+    services:
+      account_db:
+        image: postgres:16-alpine
+        ports:
+          - "5431:5432"
+        env:
+          POSTGRES_DB: mydb
+          POSTGRES_USER: myuser
+          POSTGRES_PASSWORD: mypassword
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -24,4 +35,7 @@ jobs:
           which migrate
 
       - name: Migrate DB
-        run: make dcu && make migrateup && make test
+        run: make migrateup
+
+      - name: Test
+        run: make test
