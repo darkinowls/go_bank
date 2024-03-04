@@ -8,9 +8,12 @@ sqlc:
 	sqlc generate
 
 test:
-	go test -v -cover ./...
+	cd app && go test -v -cover ./...
 
 dcu:
 	docker-compose up -d
 
-.PHONY: migrateup migratedown sqlc test dcu
+server:
+	go run app/main.go
+
+.PHONY: migrateup migratedown sqlc test dcu server

@@ -1,9 +1,9 @@
 package db
 
 import (
+	"app/util"
 	"context"
 	"github.com/stretchr/testify/require"
-	"go_bank/app/util"
 	"testing"
 	"time"
 )

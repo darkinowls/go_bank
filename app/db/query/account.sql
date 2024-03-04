@@ -8,6 +8,8 @@ RETURNING *;
 SELECT * FROM accounts
 LIMIT $1 OFFSET $2;
 
+-- name: CountAccounts :one
+SELECT count(*) FROM accounts;
 
 -- name: GetAccount :one
 SELECT * FROM accounts WHERE id = $1;

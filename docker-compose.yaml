@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3'
 
 services:
   account_db:
@@ -10,12 +10,12 @@ services:
       POSTGRES_USER: myuser
       POSTGRES_PASSWORD: mypassword
 
-#  app:
-#    build:
-#        context: .
-#    ports:
-#      - "3000:3000"
-#    depends_on:
-#      - db
-#    environment:
-#      DATABASE_URL: postgres://myuser:mypassword@db:5432/mydb
+  api_server:
+    build:
+        context: .
+    ports:
+      - "8081:8081"
+    depends_on:
+      - account_db
+    volumes:
+      - ./app:/app
