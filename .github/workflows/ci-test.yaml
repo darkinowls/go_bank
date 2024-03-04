@@ -20,6 +20,12 @@ jobs:
       - name: Run dependencies in Docker compose (db and so on)
         run: make dcu
 
+      - name: Install golang-migrate for ubuntu
+        run: | 
+          curl -L https://github.com/golang-migrate/migrate/releases/download/v4.17.0/migrate.linux-amd64.tar.gz | tar xvz
+          sudo mv migrate.linux-amd64 /usr/bin/
+          which migrate
+
       - name: Migrate DB
         run: make migrateup
 
