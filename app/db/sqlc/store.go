@@ -7,22 +7,28 @@ import (
 )
 
 // embedding (compostition + interface instead of inheritance)
-type Store struct {
+
+type Store interface {
+	Querier
+	TransferTx(ctx context.Context, arg TransferTxParams) (result TransferTxResult, globalErr error)
+}
+
+type SQLStore struct {
 	*Queries
 	db *sql.DB
 }
 
 var TkKey = struct{}{}
 
-func NewStore(db *sql.DB) *Store {
-	return &Store{
+func NewStore(db *sql.DB) Store {
+	return &SQLStore{
 		Queries: New(db),
 		db:      db,
 	}
 }
 
 // execute a function within a database transaction
-func (s *Store) execTx(ctx context.Context, fn func(*Queries) error) error {
+func (s *SQLStore) execTx(ctx context.Context, fn func(*Queries) error) error {
 	tx, err := s.db.BeginTx(ctx, nil)
 	if err != nil {
 		return err
@@ -52,7 +58,7 @@ type TransferTxResult struct {
 	ToEntry     Entry
 }
 
-func (s *Store) TransferTx(ctx context.Context, arg TransferTxParams) (result TransferTxResult, globalErr error) {
+func (s *SQLStore) TransferTx(ctx context.Context, arg TransferTxParams) (result TransferTxResult, globalErr error) {
 	globalErr = s.execTx(ctx, func(q *Queries) error {
 		var e error
 		result.Transfer, e = q.CreateTransfer(ctx, CreateTransferParams{

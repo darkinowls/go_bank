@@ -1,4 +1,5 @@
-/.env
+*.env
+app/*.env
 .git/
 .idea/
 */.idea/
