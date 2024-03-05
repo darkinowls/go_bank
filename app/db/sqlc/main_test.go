@@ -9,11 +9,6 @@ import (
 	"testing"
 )
 
-const (
-	dbDriver = "postgres"
-	dbSource = "postgresql://myuser:mypassword@localhost:5431/mydb?sslmode=disable"
-)
-
 var testQueries *Queries
 var dbCon *sql.DB
 
