@@ -84,33 +84,6 @@ func (s *SQLStore) TransferTx(ctx context.Context, arg TransferTxParams) (result
 			return e
 		}
 
-		/// update account balance
-		//acc1, e := q.GetAccountForUpdate(ctx, arg.FromAccountID)
-		//if e != nil {
-		//	return e
-		//}
-		//
-		//result.FromAccount, e = q.UpdateAccount(ctx, UpdateAccountParams{
-		//	ID:      acc1.ID,
-		//	Balance: acc1.Balance - arg.Amount,
-		//})
-		//if e != nil {
-		//	return e
-		//}
-		//
-		//acc2, e := q.GetAccountForUpdate(ctx, arg.ToAccountID)
-		//if e != nil {
-		//	return e
-		//}
-		//
-		//result.ToAccount, e = q.UpdateAccount(ctx, UpdateAccountParams{
-		//	ID:      acc2.ID,
-		//	Balance: acc2.Balance + arg.Amount,
-		//})
-		//if e != nil {
-		//	return e
-		//}
-
 		// update account balance
 		// ORDER MATTERS to avoid deadlocks (cross deadlocks)
 		if arg.FromAccountID < arg.ToAccountID {

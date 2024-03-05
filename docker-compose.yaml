@@ -10,12 +10,12 @@ services:
       POSTGRES_USER: myuser
       POSTGRES_PASSWORD: mypassword
 
-  api_server:
-    build:
-        context: .
-    ports:
-      - "8081:8081"
-    depends_on:
-      - account_db
-    volumes:
-      - ./app:/app
+#  api_server:
+#    build:
+#        context: .
+#    ports:
+#      - "8081:8081"
+#    depends_on:
+#      - account_db
+#    volumes:
+#      - ./app:/app

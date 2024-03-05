@@ -15,6 +15,6 @@ dcu:
 	docker-compose up -d
 
 server:
-	go run app/main.go
+	cd app && go run main.go
 
 .PHONY: migrateup migratedown sqlc test dcu server
