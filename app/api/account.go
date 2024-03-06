@@ -1,10 +1,11 @@
 package api
 
 import (
-	db "app/db/sqlc"
+	"app/db/sqlc"
 	"database/sql"
 	"errors"
 	"github.com/gin-gonic/gin"
+	"github.com/lib/pq"
 	"log"
 	"net/http"
 )
@@ -21,13 +22,21 @@ func (server *Server) createAccount(ctx *gin.Context) {
 		return
 	}
 
-	arg := db.CreateAccountParams{
+	arg := sqlc.CreateAccountParams{
 		Owner:    req.Owner,
 		Balance:  0,
 		Currency: req.Currency,
 	}
 	account, err := server.store.CreateAccount(ctx, arg)
 	if err != nil {
+		if pErr, ok := err.(*pq.Error); ok {
+
+			switch pErr.Code.Name() {
+			case "foreign_key_violation", "unique_violation":
+				ctx.JSON(http.StatusForbidden, pErr.Code.Name())
+				return
+			}
+		}
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
 	}
@@ -71,7 +80,7 @@ func (server *Server) listAccount(ctx *gin.Context) {
 		return
 	}
 	log.Println(req.PageId, req.PageSize)
-	accounts, err := server.store.ListAccounts(ctx, db.ListAccountsParams{
+	accounts, err := server.store.ListAccounts(ctx, sqlc.ListAccountsParams{
 		Limit:  req.PageSize,
 		Offset: (req.PageId - 1) * req.PageSize,
 	})

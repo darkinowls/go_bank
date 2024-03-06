@@ -2,7 +2,7 @@
 // versions:
 //   sqlc v1.25.0
 
-package db
+package sqlc
 
 import (
 	"time"
@@ -32,4 +32,13 @@ type Transfer struct {
 	// positive
 	Amount    int64     `json:"amount"`
 	CreatedAt time.Time `json:"created_at"`
+}
+
+type User struct {
+	Username          string    `json:"username"`
+	Password          string    `json:"password"`
+	FullName          string    `json:"full_name"`
+	Email             string    `json:"email"`
+	CreatedAt         time.Time `json:"created_at"`
+	PasswordChangedAt time.Time `json:"password_changed_at"`
 }

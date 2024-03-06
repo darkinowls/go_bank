@@ -10,7 +10,7 @@
 package mockdb
 
 import (
-	db "app/db/sqlc"
+	sqlc "app/db/sqlc"
 	context "context"
 	reflect "reflect"
 
@@ -41,10 +41,10 @@ func (m *MockStore) EXPECT() *MockStoreMockRecorder {
 }
 
 // AddAccountBalance mocks base method.
-func (m *MockStore) AddAccountBalance(arg0 context.Context, arg1 db.AddAccountBalanceParams) (db.Account, error) {
+func (m *MockStore) AddAccountBalance(arg0 context.Context, arg1 sqlc.AddAccountBalanceParams) (sqlc.Account, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AddAccountBalance", arg0, arg1)
-	ret0, _ := ret[0].(db.Account)
+	ret0, _ := ret[0].(sqlc.Account)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -71,10 +71,10 @@ func (mr *MockStoreMockRecorder) CountAccounts(arg0 any) *gomock.Call {
 }
 
 // CreateAccount mocks base method.
-func (m *MockStore) CreateAccount(arg0 context.Context, arg1 db.CreateAccountParams) (db.Account, error) {
+func (m *MockStore) CreateAccount(arg0 context.Context, arg1 sqlc.CreateAccountParams) (sqlc.Account, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CreateAccount", arg0, arg1)
-	ret0, _ := ret[0].(db.Account)
+	ret0, _ := ret[0].(sqlc.Account)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -86,10 +86,10 @@ func (mr *MockStoreMockRecorder) CreateAccount(arg0, arg1 any) *gomock.Call {
 }
 
 // CreateEntry mocks base method.
-func (m *MockStore) CreateEntry(arg0 context.Context, arg1 db.CreateEntryParams) (db.Entry, error) {
+func (m *MockStore) CreateEntry(arg0 context.Context, arg1 sqlc.CreateEntryParams) (sqlc.Entry, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CreateEntry", arg0, arg1)
-	ret0, _ := ret[0].(db.Entry)
+	ret0, _ := ret[0].(sqlc.Entry)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -101,10 +101,10 @@ func (mr *MockStoreMockRecorder) CreateEntry(arg0, arg1 any) *gomock.Call {
 }
 
 // CreateTransfer mocks base method.
-func (m *MockStore) CreateTransfer(arg0 context.Context, arg1 db.CreateTransferParams) (db.Transfer, error) {
+func (m *MockStore) CreateTransfer(arg0 context.Context, arg1 sqlc.CreateTransferParams) (sqlc.Transfer, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CreateTransfer", arg0, arg1)
-	ret0, _ := ret[0].(db.Transfer)
+	ret0, _ := ret[0].(sqlc.Transfer)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -113,6 +113,21 @@ func (m *MockStore) CreateTransfer(arg0 context.Context, arg1 db.CreateTransferP
 func (mr *MockStoreMockRecorder) CreateTransfer(arg0, arg1 any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateTransfer", reflect.TypeOf((*MockStore)(nil).CreateTransfer), arg0, arg1)
+}
+
+// CreateUser mocks base method.
+func (m *MockStore) CreateUser(arg0 context.Context, arg1 sqlc.CreateUserParams) (sqlc.User, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateUser", arg0, arg1)
+	ret0, _ := ret[0].(sqlc.User)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateUser indicates an expected call of CreateUser.
+func (mr *MockStoreMockRecorder) CreateUser(arg0, arg1 any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateUser", reflect.TypeOf((*MockStore)(nil).CreateUser), arg0, arg1)
 }
 
 // DeleteAccount mocks base method.
@@ -130,10 +145,10 @@ func (mr *MockStoreMockRecorder) DeleteAccount(arg0, arg1 any) *gomock.Call {
 }
 
 // GetAccount mocks base method.
-func (m *MockStore) GetAccount(arg0 context.Context, arg1 int64) (db.Account, error) {
+func (m *MockStore) GetAccount(arg0 context.Context, arg1 int64) (sqlc.Account, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetAccount", arg0, arg1)
-	ret0, _ := ret[0].(db.Account)
+	ret0, _ := ret[0].(sqlc.Account)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -145,10 +160,10 @@ func (mr *MockStoreMockRecorder) GetAccount(arg0, arg1 any) *gomock.Call {
 }
 
 // GetAccountForUpdate mocks base method.
-func (m *MockStore) GetAccountForUpdate(arg0 context.Context, arg1 int64) (db.Account, error) {
+func (m *MockStore) GetAccountForUpdate(arg0 context.Context, arg1 int64) (sqlc.Account, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetAccountForUpdate", arg0, arg1)
-	ret0, _ := ret[0].(db.Account)
+	ret0, _ := ret[0].(sqlc.Account)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -160,10 +175,10 @@ func (mr *MockStoreMockRecorder) GetAccountForUpdate(arg0, arg1 any) *gomock.Cal
 }
 
 // GetEntry mocks base method.
-func (m *MockStore) GetEntry(arg0 context.Context, arg1 int64) (db.Entry, error) {
+func (m *MockStore) GetEntry(arg0 context.Context, arg1 int64) (sqlc.Entry, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetEntry", arg0, arg1)
-	ret0, _ := ret[0].(db.Entry)
+	ret0, _ := ret[0].(sqlc.Entry)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -175,10 +190,10 @@ func (mr *MockStoreMockRecorder) GetEntry(arg0, arg1 any) *gomock.Call {
 }
 
 // GetTransfer mocks base method.
-func (m *MockStore) GetTransfer(arg0 context.Context, arg1 int64) (db.Transfer, error) {
+func (m *MockStore) GetTransfer(arg0 context.Context, arg1 int64) (sqlc.Transfer, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetTransfer", arg0, arg1)
-	ret0, _ := ret[0].(db.Transfer)
+	ret0, _ := ret[0].(sqlc.Transfer)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -189,11 +204,26 @@ func (mr *MockStoreMockRecorder) GetTransfer(arg0, arg1 any) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetTransfer", reflect.TypeOf((*MockStore)(nil).GetTransfer), arg0, arg1)
 }
 
+// GetUser mocks base method.
+func (m *MockStore) GetUser(arg0 context.Context, arg1 string) (sqlc.User, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetUser", arg0, arg1)
+	ret0, _ := ret[0].(sqlc.User)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetUser indicates an expected call of GetUser.
+func (mr *MockStoreMockRecorder) GetUser(arg0, arg1 any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetUser", reflect.TypeOf((*MockStore)(nil).GetUser), arg0, arg1)
+}
+
 // ListAccounts mocks base method.
-func (m *MockStore) ListAccounts(arg0 context.Context, arg1 db.ListAccountsParams) ([]db.Account, error) {
+func (m *MockStore) ListAccounts(arg0 context.Context, arg1 sqlc.ListAccountsParams) ([]sqlc.Account, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "ListAccounts", arg0, arg1)
-	ret0, _ := ret[0].([]db.Account)
+	ret0, _ := ret[0].([]sqlc.Account)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -205,10 +235,10 @@ func (mr *MockStoreMockRecorder) ListAccounts(arg0, arg1 any) *gomock.Call {
 }
 
 // ListEntries mocks base method.
-func (m *MockStore) ListEntries(arg0 context.Context, arg1 db.ListEntriesParams) ([]db.Entry, error) {
+func (m *MockStore) ListEntries(arg0 context.Context, arg1 sqlc.ListEntriesParams) ([]sqlc.Entry, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "ListEntries", arg0, arg1)
-	ret0, _ := ret[0].([]db.Entry)
+	ret0, _ := ret[0].([]sqlc.Entry)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -220,10 +250,10 @@ func (mr *MockStoreMockRecorder) ListEntries(arg0, arg1 any) *gomock.Call {
 }
 
 // ListTransfers mocks base method.
-func (m *MockStore) ListTransfers(arg0 context.Context, arg1 db.ListTransfersParams) ([]db.Transfer, error) {
+func (m *MockStore) ListTransfers(arg0 context.Context, arg1 sqlc.ListTransfersParams) ([]sqlc.Transfer, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "ListTransfers", arg0, arg1)
-	ret0, _ := ret[0].([]db.Transfer)
+	ret0, _ := ret[0].([]sqlc.Transfer)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -235,10 +265,10 @@ func (mr *MockStoreMockRecorder) ListTransfers(arg0, arg1 any) *gomock.Call {
 }
 
 // TransferTx mocks base method.
-func (m *MockStore) TransferTx(arg0 context.Context, arg1 db.TransferTxParams) (db.TransferTxResult, error) {
+func (m *MockStore) TransferTx(arg0 context.Context, arg1 sqlc.TransferTxParams) (sqlc.TransferTxResult, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "TransferTx", arg0, arg1)
-	ret0, _ := ret[0].(db.TransferTxResult)
+	ret0, _ := ret[0].(sqlc.TransferTxResult)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -250,10 +280,10 @@ func (mr *MockStoreMockRecorder) TransferTx(arg0, arg1 any) *gomock.Call {
 }
 
 // UpdateAccount mocks base method.
-func (m *MockStore) UpdateAccount(arg0 context.Context, arg1 db.UpdateAccountParams) (db.Account, error) {
+func (m *MockStore) UpdateAccount(arg0 context.Context, arg1 sqlc.UpdateAccountParams) (sqlc.Account, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UpdateAccount", arg0, arg1)
-	ret0, _ := ret[0].(db.Account)
+	ret0, _ := ret[0].(sqlc.Account)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }

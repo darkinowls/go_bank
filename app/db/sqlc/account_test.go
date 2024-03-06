@@ -1,4 +1,4 @@
-package db
+package sqlc
 
 import (
 	"app/util"
@@ -8,9 +8,11 @@ import (
 	"time"
 )
 
-func createRandomAccount(t *testing.T) (Account, error) {
+func createRandomAccount(t *testing.T) Account {
+	user := createRandomUser(t)
+
 	arg := CreateAccountParams{
-		Owner:    util.RandomOwner(),
+		Owner:    user.Username,
 		Balance:  util.RandomMoney(),
 		Currency: util.RandomCurrency(),
 	}
@@ -23,18 +25,17 @@ func createRandomAccount(t *testing.T) (Account, error) {
 
 	require.Positive(t, acc.ID)
 	require.NotZero(t, acc.CreatedAt)
-	return acc, err
+	return acc
 
 }
 
 func TestCreateAccount(t *testing.T) {
-	_, err := createRandomAccount(t)
-	require.NoError(t, err)
+	createRandomAccount(t)
 }
 
 func TestGetAccount(t *testing.T) {
 	// independent test
-	acc1, err := createRandomAccount(t)
+	acc1 := createRandomAccount(t)
 
 	acc2, err := testQueries.GetAccount(context.Background(), acc1.ID)
 	require.NoError(t, err)
@@ -48,7 +49,7 @@ func TestGetAccount(t *testing.T) {
 }
 
 func TestUpdateAccount(t *testing.T) {
-	acc1, err := createRandomAccount(t)
+	acc1 := createRandomAccount(t)
 
 	arg := UpdateAccountParams{
 		ID:      acc1.ID,
@@ -66,9 +67,9 @@ func TestUpdateAccount(t *testing.T) {
 }
 
 func TestDeleteAccount(t *testing.T) {
-	acc1, err := createRandomAccount(t)
+	acc1 := createRandomAccount(t)
 
-	err = testQueries.DeleteAccount(context.Background(), acc1.ID)
+	err := testQueries.DeleteAccount(context.Background(), acc1.ID)
 	require.NoError(t, err)
 
 	acc2, err := testQueries.GetAccount(context.Background(), acc1.ID)
@@ -77,10 +78,8 @@ func TestDeleteAccount(t *testing.T) {
 }
 
 func TestListAccounts(t *testing.T) {
-	_, err := createRandomAccount(t)
-	require.NoError(t, err)
-	_, err = createRandomAccount(t)
-	require.NoError(t, err)
+	createRandomAccount(t)
+	createRandomAccount(t)
 
 	arg := ListAccountsParams{
 		Limit:  2,

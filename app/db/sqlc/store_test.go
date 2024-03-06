@@ -1,4 +1,4 @@
-package db
+package sqlc
 
 import (
 	"context"
@@ -15,8 +15,8 @@ func TestTransferTx(t *testing.T) {
 	//acc2, err := store.GetAccount(ctx, 2)
 	//require.NoError(t, err)
 
-	acc1, _ := createRandomAccount(t)
-	acc2, _ := createRandomAccount(t)
+	acc1 := createRandomAccount(t)
+	acc2 := createRandomAccount(t)
 
 	// concurently run n instances of the same test
 	n := 5
@@ -108,8 +108,8 @@ func TestCrossTransferTxDeadlock(t *testing.T) {
 	//acc2, err := store.GetAccount(ctx, 2)
 	//require.NoError(t, err)
 
-	acc1, _ := createRandomAccount(t)
-	acc2, _ := createRandomAccount(t)
+	acc1 := createRandomAccount(t)
+	acc2 := createRandomAccount(t)
 
 	// concurently run n instances of the same test
 	n := 10
