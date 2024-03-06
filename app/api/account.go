@@ -33,7 +33,7 @@ func (server *Server) createAccount(ctx *gin.Context) {
 
 			switch pErr.Code.Name() {
 			case "foreign_key_violation", "unique_violation":
-				ctx.JSON(http.StatusForbidden, pErr.Code.Name())
+				ctx.JSON(http.StatusForbidden, errorResponse(err))
 				return
 			}
 		}
